@@ -1,5 +1,3 @@
-// index.js
-
 /**
  * Convertit le tableau 'queens' en une représentation visuelle de l'échiquier.
  * @param {number[]} queens - Tableau où queens[i] représente la colonne de la reine à la ligne i.
@@ -20,10 +18,10 @@ function formatSolution(queens, n) {
 
 /**
  * Vérifie si la position (row, col) est sûre par rapport aux reines déjà placées.
- * On vérifie la colonne et les diagonales.
- * @param {number[]} queens - Tableau des positions des reines déjà placées.
- * @param {number} row - Ligne où placer la nouvelle reine.
- * @param {number} col - Colonne où placer la nouvelle reine.
+ * Vérifie la colonne et les diagonales.
+ * @param {number[]} queens - Positions des reines déjà placées.
+ * @param {number} row - Ligne de la nouvelle reine.
+ * @param {number} col - Colonne de la nouvelle reine.
  * @returns {boolean} - true si la position est sûre, false sinon.
  */
 function isSafe(queens, row, col) {
@@ -38,23 +36,12 @@ function isSafe(queens, row, col) {
 /**
  * Résout le problème des N-Dames en utilisant le backtracking.
  * Pour n = 1, retourne directement [["#"]].
- * Pour n > 1, on explore récursivement toutes les positions possibles.
- *
- * La fonction interne backtrack :
- *  - Vérifie si toutes les reines sont placées (row === n) et, dans ce cas,
- *    ajoute la solution formatée au tableau solutions.
- *  - Parcourt toutes les colonnes pour la ligne courante,
- *    vérifie si la position est sûre avec isSafe,
- *    place la reine, appelle récursivement backtrack pour la ligne suivante,
- *    puis réinitialise la position pour tenter d'autres placements.
- *
- * @param {number} n - Taille de l'échiquier (nombre de dames).
+ * Pour n > 1, explore toutes les positions possibles.
+ * @param {number} n - Taille de l'échiquier.
  * @returns {string[][]} - Tableau de solutions.
  */
 function solveNQueens(n) {
-    if (n === 1) {
-        return [['#']];
-    }
+    if (n === 1) return [['#']];
     const solutions = [];
     const queens = new Array(n).fill(-1);
 
@@ -64,11 +51,10 @@ function solveNQueens(n) {
             return;
         }
         for (let col = 0; col < n; col++) {
-            // Vérifier que la position (row, col) est sûre avant de placer une reine
             if (isSafe(queens, row, col)) {
-                queens[row] = col; // Placer la reine
-                backtrack(row + 1); // Passer à la ligne suivante
-                queens[row] = -1; // Réinitialiser la position pour explorer d'autres colonnes
+                queens[row] = col;
+                backtrack(row + 1);
+                queens[row] = -1;
             }
         }
     }
@@ -77,20 +63,20 @@ function solveNQueens(n) {
     return solutions;
 }
 
-// Interface en ligne de commande (si exécuté directement)
+// Interface CLI
 if (require.main === module) {
     const input = process.argv[2];
     if (!input) {
-        console.log("Usage: node index.js <N>");
+        console.error("Erreur: Aucun argument fourni.\nUsage: node index.js <N>");
         process.exit(1);
     }
-    const n = parseInt(input);
+    const n = parseInt(input, 10);
     if (isNaN(n) || n < 1) {
-        console.log("Veuillez entrer un entier positif pour N.");
+        console.error("Erreur: Veuillez entrer un entier positif pour N.");
         process.exit(1);
     }
     const solutions = solveNQueens(n);
-    console.log(`Nombre de solutions trouvées pour N = ${n} : ${solutions.length}\n`);
+    console.log(`\nNombre de solutions trouvées pour N = ${n} : ${solutions.length}\n`);
     solutions.forEach((solution, index) => {
         console.log(`Solution ${index + 1} :`);
         solution.forEach(line => console.log(line));
@@ -98,7 +84,9 @@ if (require.main === module) {
     });
 }
 
-// Exporter les fonctions pour les tests
-module.exports = solveNQueens;
-module.exports.formatSolution = formatSolution;
-module.exports.isSafe = isSafe;
+// Export du module
+module.exports = {
+    solveNQueens,
+    formatSolution,
+    isSafe,
+};

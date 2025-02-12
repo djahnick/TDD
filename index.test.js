@@ -70,3 +70,19 @@ describe('Full N-Queens Solution for n = 4', () => {
         });
     });
 });
+
+describe('Full N-Queens Solution for n = 5', () => {
+    test('Devrait retourner 10 solutions distinctes pour n = 5', () => {
+        const solutions = solveNQueens(5);
+        expect(Array.isArray(solutions)).toBe(true);
+        expect(solutions.length).toBe(10);
+        solutions.forEach(solution => {
+            expect(Array.isArray(solution)).toBe(true);
+            expect(solution.length).toBe(5);
+            solution.forEach(line => {
+                expect(typeof line).toBe('string');
+                expect(line.length).toBe(5);
+            });
+        });
+    });
+});
