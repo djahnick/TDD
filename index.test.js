@@ -53,6 +53,15 @@ describe('isSafe function', () => {
         const queens = [1];
         expect(isSafe(queens, 1, 0)).toBe(false);
     });
+
+    test('Test isSafe sur une configuration complexe', () => {
+        // Configurations pour n = 4 : reines placées sur les lignes 0 et 1
+        const queens = [1, 3];
+        // Pour la ligne 2, tester la colonne 0 : attendue safe
+        expect(isSafe(queens, 2, 0)).toBe(true);
+        // Pour la ligne 2, tester la colonne 2 : attendue non safe (conflit avec la reine de la ligne 1)
+        expect(isSafe(queens, 2, 2)).toBe(false);
+    });
 });
 
 describe('Full N-Queens Solution for n = 4', () => {
