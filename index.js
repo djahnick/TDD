@@ -1,4 +1,4 @@
-
+// index.js
 
 /**
  * Convertit le tableau 'queens' en une représentation visuelle de l'échiquier.
@@ -20,6 +20,7 @@ function formatSolution(queens, n) {
 
 /**
  * Vérifie si la position (row, col) est sûre par rapport aux reines déjà placées.
+ * On vérifie la colonne et les diagonales.
  * @param {number[]} queens - Tableau des positions des reines déjà placées.
  * @param {number} row - Ligne où placer la nouvelle reine.
  * @param {number} col - Colonne où placer la nouvelle reine.
@@ -35,9 +36,18 @@ function isSafe(queens, row, col) {
 }
 
 /**
- * Résout le problème des N-Dames.
+ * Résout le problème des N-Dames en utilisant le backtracking.
  * Pour n = 1, retourne directement [["#"]].
- * Pour n > 1, utilise une fonction de backtracking.
+ * Pour n > 1, on explore récursivement toutes les positions possibles.
+ *
+ * La fonction interne backtrack :
+ *  - Vérifie si toutes les reines sont placées (row === n) et, dans ce cas,
+ *    ajoute la solution formatée au tableau solutions.
+ *  - Parcourt toutes les colonnes pour la ligne courante,
+ *    vérifie si la position est sûre avec isSafe,
+ *    place la reine, appelle récursivement backtrack pour la ligne suivante,
+ *    puis réinitialise la position pour tenter d'autres placements.
+ *
  * @param {number} n - Taille de l'échiquier (nombre de dames).
  * @returns {string[][]} - Tableau de solutions.
  */
@@ -54,11 +64,11 @@ function solveNQueens(n) {
             return;
         }
         for (let col = 0; col < n; col++) {
+            // Vérifier que la position (row, col) est sûre avant de placer une reine
             if (isSafe(queens, row, col)) {
-                queens[row] = col;
-                backtrack(row + 1);
-
-                queens[row] = -1;
+                queens[row] = col; // Placer la reine
+                backtrack(row + 1); // Passer à la ligne suivante
+                queens[row] = -1; // Réinitialiser la position pour explorer d'autres colonnes
             }
         }
     }
@@ -67,7 +77,7 @@ function solveNQueens(n) {
     return solutions;
 }
 
-
+// Interface en ligne de commande (si exécuté directement)
 if (require.main === module) {
     const input = process.argv[2];
     if (!input) {
@@ -88,7 +98,7 @@ if (require.main === module) {
     });
 }
 
-
+// Exporter les fonctions pour les tests
 module.exports = solveNQueens;
 module.exports.formatSolution = formatSolution;
 module.exports.isSafe = isSafe;
