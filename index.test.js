@@ -1,5 +1,3 @@
-// index.test.js
-
 const solveNQueens = require('./index');
 const { formatSolution, isSafe } = require('./index');
 
@@ -43,5 +41,21 @@ describe('isSafe function', () => {
     test('Retourne false pour une position en diagonale', () => {
         const queens = [1];
         expect(isSafe(queens, 1, 0)).toBe(false);
+    });
+});
+
+describe('Full N-Queens Solution for n = 4', () => {
+    test('Devrait retourner 2 solutions distinctes pour n = 4', () => {
+        const solutions = solveNQueens(4);
+        expect(Array.isArray(solutions)).toBe(true);
+        expect(solutions.length).toBe(2);
+        solutions.forEach(solution => {
+            expect(Array.isArray(solution)).toBe(true);
+            expect(solution.length).toBe(4);
+            solution.forEach(line => {
+                expect(typeof line).toBe('string');
+                expect(line.length).toBe(4);
+            });
+        });
     });
 });
