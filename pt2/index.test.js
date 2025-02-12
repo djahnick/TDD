@@ -2,10 +2,8 @@ const solveSingleAttackQueens = require('./index');
 
 /**
  * Fonction d'aide pour vérifier la validité d'une configuration.
- * Reproduit la logique de validation : pour chaque reine, on parcourt les 8 directions
- * et on s'assure que le nombre de reines rencontrées (première rencontrée dans chaque direction) est exactement 1.
- * De plus, on vérifie qu'il y a exactement 4 reines sur le plateau.
- *
+ * Pour chaque reine, on parcourt les 8 directions et on s'assure que le nombre de reines rencontrées
+ * (la première rencontrée dans chaque direction) est exactement 1, et que le total de reines est exactement 4.
  * @param {string[]} board - Plateau de configuration (tableau de 4 chaînes)
  * @returns {boolean} - true si la configuration est valide, false sinon.
  */
@@ -40,6 +38,29 @@ function configurationIsValid(board) {
   return queenCount === 4;
 }
 
+describe('isValid function edge cases (via configurationIsValid)', () => {
+  test('Une configuration avec moins de 4 reines doit être invalide', () => {
+    const board = [
+      "OOOO",
+      "O#OO",
+      "OOOO",
+      "OOOO"
+    ];
+    expect(configurationIsValid(board)).toBe(false);
+  });
+
+  test('Une configuration avec 4 reines mais un conflit (ex: 4 reines sur la première colonne) doit être invalide', () => {
+    const board = [
+      "#OOO",
+      "#OOO",
+      "#OOO",
+      "#OOO"
+    ];
+    expect(configurationIsValid(board)).toBe(false);
+  });
+});
+
+// (Les autres tests déjà existants restent inchangés.)
 describe('Single-Attack Queens Configuration (4x4 board)', () => {
   test('La fonction solveSingleAttackQueens existe', () => {
     expect(typeof solveSingleAttackQueens).toBe('function');
@@ -58,7 +79,7 @@ describe('Single-Attack Queens Configuration (4x4 board)', () => {
     });
   });
 
-  test('Toutes les configurations retournées doivent être valides (exactement 4 reines et chaque reine attaque exactement une autre)', () => {
+  test('Toutes les configurations retournées doivent être valides (chaque reine attaque exactement une autre et il y a exactement 4 reines)', () => {
     const solutions = solveSingleAttackQueens();
     solutions.forEach(config => {
       expect(configurationIsValid(config)).toBe(true);
