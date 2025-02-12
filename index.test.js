@@ -36,6 +36,17 @@ describe('Format Solution', () => {
         ];
         expect(formatSolution(queens, 4)).toEqual(expectedBoard);
     });
+
+    test('Formatte correctement un plateau pour [0, 2, 1, 3] et n = 4', () => {
+        const queens = [0, 2, 1, 3];
+        const expectedBoard = [
+            "#OOO",
+            "OO#O",
+            "O#OO",
+            "OOO#"
+        ];
+        expect(formatSolution(queens, 4)).toEqual(expectedBoard);
+    });
 });
 
 describe('isSafe function', () => {
@@ -55,11 +66,8 @@ describe('isSafe function', () => {
     });
 
     test('Test isSafe sur une configuration complexe', () => {
-        // Configurations pour n = 4 : reines placées sur les lignes 0 et 1
         const queens = [1, 3];
-        // Pour la ligne 2, tester la colonne 0 : attendue safe
         expect(isSafe(queens, 2, 0)).toBe(true);
-        // Pour la ligne 2, tester la colonne 2 : attendue non safe (conflit avec la reine de la ligne 1)
         expect(isSafe(queens, 2, 2)).toBe(false);
     });
 });
