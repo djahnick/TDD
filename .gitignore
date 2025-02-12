@@ -1,0 +1,11 @@
+# Ignorer node_modules
+node_modules/
+
+# Ignorer les fichiers de logs et environnement
+npm-debug.log
+yarn-error.log
+.env
+.DS_Store
+
+# Ignorer les fichiers Jest générés
+coverage/
