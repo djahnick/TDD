@@ -5,10 +5,17 @@
  * @param {number} n - Taille de l'échiquier (nombre de dames)
  * @returns {string[][]} - Tableau de solutions
  */
+// index.js
+
 function solveNQueens(n) {
-    return []; // Retourne un tableau vide pour l'instant
+    // Cas trivial : échiquier 1x1
+    if (n === 1) {
+        return [['#']];
+    }
+    return []; // Pour les autres valeurs, on ne fait rien pour l'instant
 }
 
-// Pour permettre les tests, exportons la fonction
 module.exports = solveNQueens;
+
+
 
