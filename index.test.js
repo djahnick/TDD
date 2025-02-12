@@ -86,3 +86,19 @@ describe('Full N-Queens Solution for n = 5', () => {
         });
     });
 });
+
+describe('Full N-Queens Solution for n = 8', () => {
+    test('Devrait retourner 92 solutions distinctes pour n = 8', () => {
+        const solutions = solveNQueens(8);
+        expect(Array.isArray(solutions)).toBe(true);
+        expect(solutions.length).toBe(92);
+        solutions.forEach(solution => {
+            expect(Array.isArray(solution)).toBe(true);
+            expect(solution.length).toBe(8);
+            solution.forEach(line => {
+                expect(typeof line).toBe('string');
+                expect(line.length).toBe(8);
+            });
+        });
+    });
+});
