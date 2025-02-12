@@ -1,7 +1,4 @@
-// index.test.js
-
-const solveNQueens = require('./index');
-const { formatSolution, isSafe } = require('./index');
+const { solveNQueens, formatSolution, isSafe } = require('./index');
 
 describe('N-Queens Problem', () => {
     test('La fonction solveNQueens existe', () => {
@@ -13,6 +10,18 @@ describe('N-Queens Problem', () => {
         expect(Array.isArray(solutions)).toBe(true);
         expect(solutions.length).toBe(1);
         expect(solutions[0]).toEqual(['#']);
+    });
+
+    test('Devrait retourner aucune solution pour n = 2', () => {
+        const solutions = solveNQueens(2);
+        expect(Array.isArray(solutions)).toBe(true);
+        expect(solutions.length).toBe(0);
+    });
+
+    test('Devrait retourner aucune solution pour n = 3', () => {
+        const solutions = solveNQueens(3);
+        expect(Array.isArray(solutions)).toBe(true);
+        expect(solutions.length).toBe(0);
     });
 });
 
