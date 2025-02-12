@@ -1,4 +1,4 @@
-// index.js
+
 
 /**
  * Convertit le tableau 'queens' en une représentation visuelle de l'échiquier.
@@ -37,7 +37,7 @@ function isSafe(queens, row, col) {
 /**
  * Résout le problème des N-Dames.
  * Pour n = 1, retourne directement [["#"]].
- * Pour n > 1, utilise une fonction de backtracking qui ne place une reine que si isSafe renvoie true.
+ * Pour n > 1, utilise une fonction de backtracking.
  * @param {number} n - Taille de l'échiquier (nombre de dames).
  * @returns {string[][]} - Tableau de solutions.
  */
@@ -57,7 +57,8 @@ function solveNQueens(n) {
             if (isSafe(queens, row, col)) {
                 queens[row] = col;
                 backtrack(row + 1);
-                // Optionnel: réinitialiser queens[row] = -1; (non nécessaire ici)
+
+                queens[row] = -1;
             }
         }
     }
@@ -66,7 +67,7 @@ function solveNQueens(n) {
     return solutions;
 }
 
-// Interface en ligne de commande (si exécuté directement)
+
 if (require.main === module) {
     const input = process.argv[2];
     if (!input) {
@@ -87,7 +88,7 @@ if (require.main === module) {
     });
 }
 
-// Exporter les fonctions pour les tests
+
 module.exports = solveNQueens;
 module.exports.formatSolution = formatSolution;
 module.exports.isSafe = isSafe;

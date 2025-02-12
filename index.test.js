@@ -1,3 +1,5 @@
+// index.test.js
+
 const solveNQueens = require('./index');
 const { formatSolution, isSafe } = require('./index');
 
