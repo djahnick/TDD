@@ -38,29 +38,6 @@ function configurationIsValid(board) {
   return queenCount === 4;
 }
 
-describe('isValid function edge cases (via configurationIsValid)', () => {
-  test('Une configuration avec moins de 4 reines doit être invalide', () => {
-    const board = [
-      "OOOO",
-      "O#OO",
-      "OOOO",
-      "OOOO"
-    ];
-    expect(configurationIsValid(board)).toBe(false);
-  });
-
-  test('Une configuration avec 4 reines mais un conflit (ex: 4 reines sur la première colonne) doit être invalide', () => {
-    const board = [
-      "#OOO",
-      "#OOO",
-      "#OOO",
-      "#OOO"
-    ];
-    expect(configurationIsValid(board)).toBe(false);
-  });
-});
-
-// (Les autres tests déjà existants restent inchangés.)
 describe('Single-Attack Queens Configuration (4x4 board)', () => {
   test('La fonction solveSingleAttackQueens existe', () => {
     expect(typeof solveSingleAttackQueens).toBe('function');
@@ -84,5 +61,35 @@ describe('Single-Attack Queens Configuration (4x4 board)', () => {
     solutions.forEach(config => {
       expect(configurationIsValid(config)).toBe(true);
     });
+  });
+});
+
+describe('isValid function edge cases (via configurationIsValid)', () => {
+  test('Une configuration avec moins de 4 reines doit être invalide', () => {
+    const board = [
+      "OOOO",
+      "O#OO",
+      "OOOO",
+      "OOOO"
+    ];
+    expect(configurationIsValid(board)).toBe(false);
+  });
+
+  test('Une configuration avec 4 reines mais un conflit (ex: 4 reines sur la première colonne) doit être invalide', () => {
+    const board = [
+      "#OOO",
+      "#OOO",
+      "#OOO",
+      "#OOO"
+    ];
+    expect(configurationIsValid(board)).toBe(false);
+  });
+});
+
+describe('Distinct Configurations', () => {
+  test('Toutes les configurations retournées doivent être distinctes', () => {
+    const solutions = solveSingleAttackQueens();
+    const unique = new Set(solutions.map(config => JSON.stringify(config)));
+    expect(unique.size).toBe(solutions.length);
   });
 });
