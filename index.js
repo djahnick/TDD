@@ -37,7 +37,7 @@ function isSafe(queens, row, col) {
 /**
  * Résout le problème des N-Dames.
  * Pour n = 1, retourne directement [["#"]].
- * Pour n > 1, utilise une fonction de backtracking pour explorer les positions.
+ * Pour n > 1, utilise une fonction de backtracking qui ne place une reine que si isSafe renvoie true.
  * @param {number} n - Taille de l'échiquier (nombre de dames).
  * @returns {string[][]} - Tableau de solutions.
  */
@@ -53,11 +53,12 @@ function solveNQueens(n) {
             solutions.push(formatSolution(queens, n));
             return;
         }
-        // Boucle sur toutes les colonnes de la ligne row
         for (let col = 0; col < n; col++) {
-            // Pour le commit 7, nous plaçons la reine sans vérifier isSafe
-            queens[row] = col;
-            backtrack(row + 1);
+            if (isSafe(queens, row, col)) {
+                queens[row] = col;
+                backtrack(row + 1);
+                // Optionnel: réinitialiser queens[row] = -1; (non nécessaire ici)
+            }
         }
     }
 
