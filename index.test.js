@@ -7,3 +7,4 @@ describe('N-Queens Problem', () => {
         expect(typeof solveNQueens).toBe('function');
     });
 });
+

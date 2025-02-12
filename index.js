@@ -11,3 +11,4 @@ function solveNQueens(n) {
 
 // Pour permettre les tests, exportons la fonction
 module.exports = solveNQueens;
+
