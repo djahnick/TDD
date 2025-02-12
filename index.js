@@ -37,6 +37,7 @@ function isSafe(queens, row, col) {
 /**
  * Résout le problème des N-Dames.
  * Pour n = 1, retourne directement [["#"]].
+ * Pour n > 1, prépare la structure de backtracking.
  * @param {number} n - Taille de l'échiquier (nombre de dames).
  * @returns {string[][]} - Tableau de solutions.
  */
@@ -44,7 +45,25 @@ function solveNQueens(n) {
     if (n === 1) {
         return [['#']];
     }
-    return []; // Pour le moment, on ne gère pas n > 1
+    const solutions = [];
+    const queens = new Array(n).fill(-1);
+
+    // Squelette de la fonction backtracking
+    function backtrack(row) {
+        if (row === n) {
+            // Quand toutes les reines sont placées, ajouter la solution formatée.
+            solutions.push(formatSolution(queens, n));
+            return;
+        }
+        // Parcourir toutes les colonnes de la ligne row (pour l'instant, boucle vide)
+        for (let col = 0; col < n; col++) {
+            // TODO: Implémenter la logique de placement
+            // Par exemple, ici nous pourrions simplement écrire un commentaire.
+        }
+    }
+
+    backtrack(0);
+    return solutions;
 }
 
 // Interface en ligne de commande (si exécuté directement)

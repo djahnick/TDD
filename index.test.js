@@ -31,21 +31,17 @@ describe('Format Solution', () => {
 
 describe('isSafe function', () => {
     test('Retourne true si la position est sûre', () => {
-        // Exemple : Une reine à la ligne 0, colonne 1.
         const queens = [1];
-        // Pour la ligne 1, colonne 3 ne partage ni la même colonne ni la diagonale.
         expect(isSafe(queens, 1, 3)).toBe(true);
     });
 
     test('Retourne false pour la même colonne', () => {
         const queens = [1];
-        // Essayer de placer une reine en (1,1) échoue car la colonne 1 est déjà occupée.
         expect(isSafe(queens, 1, 1)).toBe(false);
     });
 
     test('Retourne false pour une position en diagonale', () => {
         const queens = [1];
-        // Essayer de placer une reine en (1,0) échoue car (0,1) et (1,0) sont en diagonale.
         expect(isSafe(queens, 1, 0)).toBe(false);
     });
 });
