@@ -19,15 +19,18 @@ function formatSolution(queens, n) {
 }
 
 /**
- * Stub de la fonction isSafe.
  * Vérifie si la position (row, col) est sûre par rapport aux reines déjà placées.
  * @param {number[]} queens - Tableau des positions des reines déjà placées.
  * @param {number} row - Ligne où placer la nouvelle reine.
  * @param {number} col - Colonne où placer la nouvelle reine.
- * @returns {boolean} - Pour l'instant, retourne toujours true.
+ * @returns {boolean} - true si la position est sûre, false sinon.
  */
 function isSafe(queens, row, col) {
-    // Stub : à implémenter ultérieurement
+    for (let i = 0; i < row; i++) {
+        if (queens[i] === col || Math.abs(row - i) === Math.abs(col - queens[i])) {
+            return false;
+        }
+    }
     return true;
 }
 
